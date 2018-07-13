@@ -1,0 +1,11 @@
+a = [3, 10, -1]
+print(a)
+a.append(1)
+print(a)
+a.append('hello')
+print(a)
+a.append([4,5])
+print(a)
+a.pop()
+print(a)
+print(a[2])
