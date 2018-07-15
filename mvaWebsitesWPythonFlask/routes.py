@@ -1,8 +1,11 @@
 from flask import Flask, url_for, request, render_template
 from app import app
 import redis
+import os
 
-r = redis.StrictRedis(host='mvaflask.redis.cache.windows.net',port=6380,password='', charset='utf-8', decode_responses=True)
+AZURE_ACCESS_KEY = os.environ.get('AZURE_ACCESS_KEY')
+
+r = redis.StrictRedis(host='mvaflask.redis.cache.windows.net',port=6380,password=AZURE_ACCESS_KEY, charset='utf-8', decode_responses=True)
 
 @app.route('/')
 def hello():
