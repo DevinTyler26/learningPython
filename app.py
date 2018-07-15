@@ -1,5 +1,8 @@
 from flask import Flask
 
+host='0.0.0.0'
+port=5000
+
 app = Flask(__name__)
 
 wsgi_app = app.wsgi_app
