@@ -2,7 +2,7 @@ from flask import Flask, url_for, request, render_template
 from app import app
 import redis
 
-r = redis.StrictRedis(host='localhost',port=6379,db=0, charset='utf-8', decode_responses=True)
+r = redis.StrictRedis(host='mvaflask.redis.cache.windows.net',port=6380,password='', charset='utf-8', decode_responses=True)
 
 @app.route('/')
 def hello():
