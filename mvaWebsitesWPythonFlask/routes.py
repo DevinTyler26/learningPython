@@ -1,5 +1,8 @@
 from flask import Flask, url_for, request, render_template
 from app import app
+import redis
+
+r = redis.StrictRedis(host='localhost',port=6379,db=0, charset='utf-8', decode_responses=True)
 
 @app.route('/')
 def hello():
@@ -20,6 +23,11 @@ def create():
     title = request.form['title']
     question = request.form['question']
     answer = request.form['answer']
+
+    r.set(title+':question', question)
+    r.set(title+':answer', answer)
+    
+
     return render_template('CreatedQuestion.html', question = question)
   else:
     return '<h2>Bad Request</h2>'
@@ -27,11 +35,12 @@ def create():
 @app.route('/question/<title>', methods=['GET', 'POST'])
 def question(title):
   if request.method == 'GET':
-    question = 'Question here...'
+    # question = 'Question here...'
+    question = r.get(title+':question')
     return render_template('AnswerQuestion.html', question = question)
   elif request.method == 'POST':
     submittedAnswer = request.form['submittedAnswer']
-    answer = 'Answer'
+    answer = r.get(title+':answer')
     if submittedAnswer == answer:
       return render_template('Correct.html')
     else:
